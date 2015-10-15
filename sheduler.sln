@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sheduler", "sheduler\Sheduler.csproj", "{FABEB7B9-C5D1-41C1-BDDC-ED5A7BA6B1CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryForDB", "LibraryForDB\LibraryForDB.csproj", "{AC2AA8AF-E3BB-41B1-AF49-CC8C9033945F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FABEB7B9-C5D1-41C1-BDDC-ED5A7BA6B1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABEB7B9-C5D1-41C1-BDDC-ED5A7BA6B1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABEB7B9-C5D1-41C1-BDDC-ED5A7BA6B1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABEB7B9-C5D1-41C1-BDDC-ED5A7BA6B1CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC2AA8AF-E3BB-41B1-AF49-CC8C9033945F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC2AA8AF-E3BB-41B1-AF49-CC8C9033945F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC2AA8AF-E3BB-41B1-AF49-CC8C9033945F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC2AA8AF-E3BB-41B1-AF49-CC8C9033945F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
