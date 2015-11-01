@@ -13,7 +13,18 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <telerik:RadScheduleView Name="schedulerView">
+        <telerik:RadScheduleView AppointmentsSource="{Binding LoadAppointment}">
+            <telerik:EventToCommandBehavior.EventBindings>
+                <telerik:EventBinding EventName="AppointmentCreated"
+                                      Command="{Binding SaveAppointment}"
+                                      PassEventArgsToCommand="True"/>
+                <telerik:EventBinding EventName="AppointmentDeleted"
+                                      Command="{Binding DeleteAppointment}"
+                                      PassEventArgsToCommand="True"/>
+                <telerik:EventBinding EventName="AppointmentEdited"
+                                      Command="{Binding EditAppointment}"
+                                      PassEventArgsToCommand="True"/>
+            </telerik:EventToCommandBehavior.EventBindings>
             <telerik:RadScheduleView.ViewDefinitions>
                 <telerik:DayViewDefinition />
                 <telerik:WeekViewDefinition />

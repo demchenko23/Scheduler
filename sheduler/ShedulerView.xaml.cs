@@ -25,12 +25,7 @@ namespace Sheduler
     {
         public ShedulerView()
         {
-            InitializeComponent();
-            var vm = new ShedulerViewModel();
-            schedulerView.AppointmentsSource = vm.Load();
-            schedulerView.AppointmentCreated += vm.schedulerView_AppointmentCreated;
-            schedulerView.AppointmentDeleted += vm.schedulerView_AppointmentDeleted;
-            schedulerView.AppointmentEdited += vm.schedulerView_AppointmentEdited;
+            InitializeComponent();            
         }
     }
 }

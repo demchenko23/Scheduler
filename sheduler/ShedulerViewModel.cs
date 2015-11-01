@@ -10,17 +10,32 @@ using Telerik.Windows.Controls.ScheduleView;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 
 namespace Sheduler
 {
-    public class ShedulerViewModel : INotifyPropertyChanging
+    public class ShedulerViewModel
     {
-        public ObservableCollection<Appointment> Load()
+        public ObservableCollection<Appointment> LoadAppointment { get; set; }
+        public DelegateCommand<AppointmentCreatedEventArgs> SaveAppointment { get; set; }
+        public DelegateCommand<AppointmentDeletedEventArgs> DeleteAppointment { get; set; }
+        public DelegateCommand<AppointmentEditedEventArgs> EditAppointment { get; set; }
+        public ShedulerViewModel()
         {
-            using (var db = new ModelAppointment())
+            this.LoadAppointment = Load();
+            this.SaveAppointment = new DelegateCommand<AppointmentCreatedEventArgs>(Save);
+            this.DeleteAppointment = new DelegateCommand<AppointmentDeletedEventArgs>(Delete);
+            this.EditAppointment = new DelegateCommand<AppointmentEditedEventArgs>(Edit);
+        }
+        private ObservableCollection<Appointment> Load()
+        {
+            using (var db = new AppointmentContext())
             {
-                var collection = new ObservableCollection<Appointment>();               
-                var findApps = db.AllAppointments.Select(app => app);
+                var collection = new ObservableCollection<Appointment>();
+                try
+                {
+                var findApps = db.AppointmentModels.Select(app => app);
                 if (findApps.Count() > 0)
                 {
                     foreach (var app in findApps)
@@ -34,51 +49,52 @@ namespace Sheduler
                         collection.Add(appoint);
                     }
                 }
-                
+                }
+                catch
+                { }                
                 return collection;
             }
         }
-        public void schedulerView_AppointmentCreated(object sender, AppointmentCreatedEventArgs e)
+        public void Save(AppointmentCreatedEventArgs e)
         {
-            using (var db = new ModelAppointment())
+            using (var db = new AppointmentContext())
             {
-                var appAdd = (Appointment)(e.CreatedAppointment);
-                var newApp = new AllAppointment()
+                var appointment = (Appointment)(e.CreatedAppointment);
+                var newAppointment = new AppointmentModel()
                 {
-                    Id = appAdd.UniqueId,
-                    StartTime = appAdd.Start,
-                    EndTime = appAdd.End,
-                    Subject = appAdd.Subject,
-                    Body = appAdd.Body
+                    Id = appointment.UniqueId,
+                    StartTime = appointment.Start,
+                    EndTime = appointment.End,
+                    Subject = appointment.Subject,
+                    Body = appointment.Body
                 };
-                db.AllAppointments.Add(newApp);
+                db.AppointmentModels.Add(newAppointment);
                 db.SaveChanges();
             }        
         }
-        public void schedulerView_AppointmentDeleted(object sender, AppointmentDeletedEventArgs e)
+        public void Delete(AppointmentDeletedEventArgs e)
         {
-            using (var db = new ModelAppointment())
+            var appointment = (Appointment)(e.Appointment);
+            using (var db = new AppointmentContext())
             {
-                var appDelet = (Appointment)(e.Appointment);
-                var findAppInDB = db.AllAppointments.FirstOrDefault(applic => applic.Id == appDelet.UniqueId);
-                db.AllAppointments.Remove(findAppInDB);
+
+                var findAppInDB = db.AppointmentModels.FirstOrDefault(applic => applic.Id == appointment.UniqueId);
+                db.AppointmentModels.Remove(findAppInDB);
                 db.SaveChanges();
             }
-            
         }
-        public void schedulerView_AppointmentEdited(object sender, AppointmentEditedEventArgs e)
+        public void Edit(AppointmentEditedEventArgs e)
         {
-            using (var db = new ModelAppointment())
+            var appointment = (Appointment)(e.Appointment);
+            using (var db = new AppointmentContext())
             {
-                var appModific = (Appointment)(e.Appointment);
-                var findAppInDB = db.AllAppointments.FirstOrDefault(applic => applic.Id == appModific.UniqueId);
-                findAppInDB.StartTime = appModific.Start;
-                findAppInDB.EndTime = appModific.End;
-                findAppInDB.Subject = appModific.Subject;
-                findAppInDB.Body = appModific.Body;
+                var findAppInDB = db.AppointmentModels.FirstOrDefault(applic => applic.Id == appointment.UniqueId);
+                findAppInDB.StartTime = appointment.Start;
+                findAppInDB.EndTime = appointment.End;
+                findAppInDB.Subject = appointment.Subject;
+                findAppInDB.Body = appointment.Body;
                 db.SaveChanges();
             }       
         }
-        public event PropertyChangingEventHandler PropertyChanging;
     }
 }

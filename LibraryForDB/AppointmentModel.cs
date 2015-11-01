@@ -6,8 +6,8 @@ namespace LibraryForDB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("AllAppointment")]
-    public partial class AllAppointment
+    [Table("Appointment")]
+    public partial class AppointmentModel
     {
         [StringLength(50)]
         public string Id { get; set; }

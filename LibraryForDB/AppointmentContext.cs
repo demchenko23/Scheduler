@@ -5,14 +5,14 @@ namespace LibraryForDB
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ModelAppointment : DbContext
+    public partial class AppointmentContext : DbContext
     {
-        public ModelAppointment()
-            : base("name=ModelAppointment")
+        public AppointmentContext()
+            : base("name=AppointmentContext")
         {
         }
 
-        public virtual DbSet<AllAppointment> AllAppointments { get; set; }
+        public virtual DbSet<AppointmentModel> AppointmentModels { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
